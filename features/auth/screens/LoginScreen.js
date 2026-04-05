@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from 'react'
-import {  Image, ImageBackground, View } from 'react-native'
+import React, { useEffect, useRef, useState } from 'react'
+import {  Animated, Dimensions, Image, ImageBackground, TouchableOpacity, View } from 'react-native'
 import GlobalStyles from '../../../shared/theme/GlobalStyles'
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { LinearGradient } from "expo-linear-gradient";
 import { Button, HelperText, IconButton, Text, TextInput } from 'react-native-paper'
 import Loading from '../../../shared/components/Loading';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { AuthButton } from '../components/AuthButton';
 import { Ionicons, FontAwesome } from '@expo/vector-icons';
+import { LoginMail } from '../components/LoginMail';
+import LoginNumber from '../components/LoginNumber';
 
 
 
@@ -15,45 +16,18 @@ import { Ionicons, FontAwesome } from '@expo/vector-icons';
 
 export default function LoginScreen({ navigation }) {
 
-  const [username,setUsername] = useState(null)
-  const [password,setPassword] = useState(null)
-  const [invalidData,setInvalidData] = useState(false)
-  const [showPassword, setShowPassword] = useState(false);
+
+  
   const [loading, setLoading] = useState(false);
 
-  const toggleShowPassword = () => {
-    setShowPassword(!showPassword);
-};
+ const [activeForm, setActiveForm] = useState(null);
 
- const forgotPasswordhandle = async () => {
-    await AsyncStorage.removeItem("token");
-    await AsyncStorage.removeItem("refreshToken")
-    navigation.replace('UserValidate')
-  }
 
-  const singInHandle = () => {
-  //   setInvalidData(false);
-  //   setLoading(true);
-  //   if(username != null && password != null ) {
-  //     userLogin({username,password}).then(res => {
-  //       if(!res){
-  //         setInvalidData(true);
-  //         setLoading(false);
-  //       }
-  //       else if(res.data){
-  //       saveToken(res.data.token, res.data.refreshToken)
-  //       setLoading(true);
-  //       navigation.replace('UserLogged');
-  //       }
-  //     });
-  //   }else{
-  //     setInvalidData(true);
-  //     setLoading(false);
-  //   }
-  }
-  const loginPhone = () => {
-    navigation.navigate('LoginNumber')
-  }
+  
+
+
+
+  
   const loginGoogle = async () => {
   //   try {
   //     await GoogleSignin.hasPlayServices();
@@ -122,31 +96,74 @@ export default function LoginScreen({ navigation }) {
   //   googleConfig()
     
   // },[])
-  const singUpHandle = () => {
-    setLoading(true);
-    navigation.navigate('Auth')
-    setLoading(false);
-
-  }
  
 
+  const renderForm = () => {
+    switch (activeForm) {
+      case 'mail':
+        return (
+          <LoginMail/>
+        );
+      case 'phone':
+        return (
+          <LoginNumber/>
+        );
+      case 'google':
+        return <Text style={styles.title}>Login con Google</Text>;
+      case 'guest':
+        return <Text style={styles.title}>Modo Invitado</Text>;
+      default:
+        return null;
+    }
+  };
   return (
     
     <ImageBackground source={require('../../../assets/authBackground.jpg')} resizeMode="cover" style={GlobalStyles.body}>
       <View style={GlobalStyles.overlay}>
         {/* add safe area for content, after backgrounds */}
         <SafeAreaView style={GlobalStyles.body}>
-          <View style={[GlobalStyles.authLogo]}>
+
+          {
+            activeForm!==null && (
+              <TouchableOpacity onPress={()=>{setActiveForm(null)}}>
+                <Ionicons name="chevron-back" size={40} color={'#fff'} style={{position: 'absolute',left: 10}} />
+              </TouchableOpacity>
+            )
+
+          }
+
+          <View style={[GlobalStyles.authLogo,]}>
             <Image  source={require('../../../assets/icons/authLogo.png')} />
             <Text style={[GlobalStyles.introText]}>Tu pasaporte digital de experiencias</Text>
           </View>
-          <View>
+
+          
+          
+          {/* forms view */}
+          {
+            activeForm !== null && (
+              <View style={{flex:1,marginTop:'20%'}}> 
+                {renderForm()}
+
+                
+              
+              </View>
+
+
+            )
+          }
+
+          
+          {/* buttons view */}
+          {
+            activeForm=== null && (
+            <View style={{flex:1, justifyContent:'flex-end'}}>
             <AuthButton
               text="Continuar con tu Email"
               backgroundColor='#ffffff'
               textColor='#000000'
               icon={<Ionicons name="mail-outline" size={25} color="#000000" />}
-              onPress={() => handleSelect('login')}
+              onPress={() => setActiveForm('mail')}
             />
 
             
@@ -156,7 +173,7 @@ export default function LoginScreen({ navigation }) {
               backgroundColor='#ffffff'
               textColor='#000000'
               icon={<Ionicons name="phone-portrait-outline" size={25} color="#000000" />}
-              onPress={() => handleSelect('login')}
+              onPress={() => setActiveForm('phone')}
             />
             <AuthButton
               text="Continuar con Google"
@@ -179,6 +196,15 @@ export default function LoginScreen({ navigation }) {
               onPress={() => handleSelect('login')}
             />
           </View>
+            )
+
+          }
+
+          
+          
+          
+     
+     
         </SafeAreaView>
       </View>
     </ImageBackground>

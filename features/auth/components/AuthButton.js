@@ -1,8 +1,10 @@
 import { TouchableOpacity, Text, StyleSheet, View } from 'react-native';
 
-export const AuthButton = ({ text, icon, backgroundColor, textColor }) => {
+export const AuthButton = ({ text, icon, backgroundColor, textColor, onPress }) => {
   return (
-    <TouchableOpacity style={[styles.button,  {backgroundColor} ]} >
+    <TouchableOpacity style={[styles.button,  {backgroundColor} ]} 
+        onPress={onPress}
+    >
       
       {/* ICONO */}
       <View style={styles.iconContainer}>

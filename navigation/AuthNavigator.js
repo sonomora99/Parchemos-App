@@ -21,7 +21,7 @@ export default function AuthNavigator() {
 
   return (
     <Stack.Navigator
-      initialRouteName={firstTime!=null?'Login':'Intro'}
+      initialRouteName={firstTime!=null?'Intro':'Login'}
     >
       
       <Stack.Screen name="Login" component={LoginScreen} options={{

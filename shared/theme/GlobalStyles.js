@@ -16,14 +16,13 @@ export default StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,0.4)'
   },
   authLogo:{
-    flex:1,
-    justifyContent:'flex-start',
-    height:'50%',
+    // flex:1,
+    // justifyContent:'flex-start',
+    
     marginTop:'10%',
     marginLeft:'auto',
     marginRight:'auto',
-    marginBottom:'10%',
-    alignItems:'center'
+    alignItems:'center',
   },
   infoLogo:{
     flexDirection:'row',
