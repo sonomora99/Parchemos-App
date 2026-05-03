@@ -1,7 +1,7 @@
 export default [
     {
         id:'1',
-        title:'Guia digital de actividades',
+        title:'Pasaporte digital de experiencias',
         description:'Descubre eventos increíbles y actividades emocionantes cerca de ti.',
         image: require('../../../assets/css/info/info1.png'),
         showButton:false

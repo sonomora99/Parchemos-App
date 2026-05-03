@@ -24,7 +24,7 @@ export default function Intro({navigation}) {
 
     const scrollX = useRef(new Animated.Value(0)).current;
     return (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', }}>
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center'}}>
             <FlatList 
                 horizontal
                 showsVerticalScrollIndicator={false}
@@ -38,7 +38,7 @@ export default function Intro({navigation}) {
                 data={slides} renderItem={({ item }) => 
                 <View style={[GlobalStyles.body, GlobalStyles.backgroundSize,{backgroundColor:'#fff'},{width, height}]}>
                     <View style={GlobalStyles.infoLogo}>
-                        <Image style={[{ resizeMode: 'contain', height: '100%' }]} source={require('../../../assets/logo.png')} />
+                        <Image style={[{ resizeMode: 'contain', height: '100%' }]} source={require('../../../assets/icons/Icon.png')} />
                     </View>
                     <View style={[GlobalStyles.authForm]}>
                         <Text style={[GlobalStyles.introTitle,GlobalStyles.introFont, { width:'100%',marginBottom:10,textAlign: 'center'}]}>{item.title}</Text>
@@ -71,14 +71,14 @@ export default function Intro({navigation}) {
                         <View style={[GlobalStyles.formGroup]}>
                         {
                                     item.showButton?
-                                    <LinearGradient start={{x: 0.0, y: 0.25}} end={{x: 0.5, y: 1.0}} colors={['#ff3030', '#ee095a']} style={{ borderRadius:25, marginTop:2, width:'95%'}}>
+                                    <LinearGradient start={{x: 0.0, y: 0.25}} end={{x: 0.5, y: 1.0}} colors={['#ff3030', '#ee095a']} style={{ borderRadius:25, marginTop:2,marginLeft:30,marginRight:30, width:'80%'}}>
                                     <Button
       
                                     onPress={startApplication}
                                     style={[GlobalStyles.introButton]}
                                     labelStyle={[{color:'#fff'}]}
                                     >
-                                    <Text style={{fontWeight: 'bold', color:'#fff', fontSize:15, marginTop:0,marginBottom:3}}>Comienza</Text> 
+                                    <Text style={{fontWeight: 'bold', color:'#fff', fontSize:15, marginTop:5,marginBottom:3, alignContent:'center'}}>Comienza</Text> 
                                     </Button>
                                     </LinearGradient>
                                     :

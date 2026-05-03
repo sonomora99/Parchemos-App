@@ -4,7 +4,7 @@ import GlobalStyles from '../../../shared/theme/GlobalStyles';
 import { Button, HelperText, IconButton, TextInput } from 'react-native-paper';
 import { useState } from 'react';
 
-export const LoginMail = () => {
+export const LoginMail = ({ navigation, route}) => {
     const [username,setUsername] = useState(null)
     const [password,setPassword] = useState(null)
     const [invalidData,setInvalidData] = useState(false)
@@ -40,14 +40,12 @@ export const LoginMail = () => {
   //     setLoading(false);
   //   }
   }
-  const loginPhone = () => {
-    navigation.navigate('LoginNumber')
-  }
+ 
 
    const singUpHandle = () => {
-    setLoading(true);
-    navigation.navigate('Auth')
-    setLoading(false);
+    // setLoading(true);
+    navigation.replace('Register')
+    // setLoading(false);
 
   }
   return (
